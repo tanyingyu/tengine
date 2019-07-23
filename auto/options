@@ -203,6 +203,7 @@ do
         --sbin-path=*)                   NGX_SBIN_PATH="$value"     ;;
         --modules-path=*)                NGX_MODULES_PATH="$value"  ;;
         --conf-path=*)                   NGX_CONF_PATH="$value"     ;;
+        --temp-path=*)                   NGX_TEMP_PATH="$value"   ;;
         --error-log-path=*)              NGX_ERROR_LOG_PATH="$value";;
         --pid-path=*)                    NGX_PID_PATH="$value"      ;;
         --lock-path=*)                   NGX_LOCK_PATH="$value"     ;;
@@ -446,6 +447,7 @@ cat << END
   --help                             print this message
 
   --prefix=PATH                      set installation prefix
+  --temp-path=PATH                   set temp pathname
   --sbin-path=PATH                   set nginx binary pathname
   --modules-path=PATH                set modules path
   --conf-path=PATH                   set nginx.conf pathname
@@ -643,6 +645,7 @@ fi
 
 
 NGX_SBIN_PATH=${NGX_SBIN_PATH:-sbin/nginx}
+NGX_TEMP_PATH=${NGX_TEMP_PATH:-temp}
 NGX_MODULES_PATH=${NGX_MODULES_PATH:-modules}
 NGX_CONF_PATH=${NGX_CONF_PATH:-conf/nginx.conf}
 NGX_CONF_PREFIX=`dirname $NGX_CONF_PATH`
@@ -656,11 +659,11 @@ else
 fi
 
 NGX_HTTP_LOG_PATH=${NGX_HTTP_LOG_PATH:-logs/access.log}
-NGX_HTTP_CLIENT_TEMP_PATH=${NGX_HTTP_CLIENT_TEMP_PATH:-client_body_temp}
-NGX_HTTP_PROXY_TEMP_PATH=${NGX_HTTP_PROXY_TEMP_PATH:-proxy_temp}
-NGX_HTTP_FASTCGI_TEMP_PATH=${NGX_HTTP_FASTCGI_TEMP_PATH:-fastcgi_temp}
-NGX_HTTP_UWSGI_TEMP_PATH=${NGX_HTTP_UWSGI_TEMP_PATH:-uwsgi_temp}
-NGX_HTTP_SCGI_TEMP_PATH=${NGX_HTTP_SCGI_TEMP_PATH:-scgi_temp}
+NGX_HTTP_CLIENT_TEMP_PATH=${NGX_HTTP_CLIENT_TEMP_PATH:-$NGX_TEMP_PATH/client_body_temp}
+NGX_HTTP_PROXY_TEMP_PATH=${NGX_HTTP_PROXY_TEMP_PATH:-$NGX_TEMP_PATH/proxy_temp}
+NGX_HTTP_FASTCGI_TEMP_PATH=${NGX_HTTP_FASTCGI_TEMP_PATH:-$NGX_TEMP_PATH/fastcgi_temp}
+NGX_HTTP_UWSGI_TEMP_PATH=${NGX_HTTP_UWSGI_TEMP_PATH:-$NGX_TEMP_PATH/uwsgi_temp}
+NGX_HTTP_SCGI_TEMP_PATH=${NGX_HTTP_SCGI_TEMP_PATH:-$NGX_TEMP_PATH/scgi_temp}
 
 case ".$NGX_PERL_MODULES" in
     ./*)
